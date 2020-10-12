@@ -1,0 +1,14 @@
+.am-btn {
+  padding: 0.4rem 2rem;
+  outline: none;
+  border-radius: 1.5rem;
+  font-size: 1rem;
+  &:focus {
+    outline: none;
+  }
+}
+
+.solid {
+  color: $shade-white;
+  border: none;
+}

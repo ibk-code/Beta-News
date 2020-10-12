@@ -1,0 +1,62 @@
+.details {
+  background-color: $shade-white;
+  padding: 2rem;
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .content {
+    &::first-letter {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+  }
+
+  .read-more {
+    a {
+      color: $primary-orange;
+      text-decoration: none;
+    }
+  }
+
+  .comment {
+    h2 {
+      font-weight: 700;
+      font-size: 1.6rem;
+    }
+    form {
+      textarea {
+        display: block;
+        width: 100%;
+        height: 150px;
+        resize: none;
+        padding: 0 0.2rem;
+        margin-bottom: 1rem;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .other-comment {
+      margin-top: 2rem;
+      h3 {
+        font-style: 1.2rem;
+        font-weight: 600;
+      }
+
+      .user-comment {
+        p {
+          margin-bottom: 0.4rem;
+        }
+
+        .user-comments {
+          color: $shade-grey;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

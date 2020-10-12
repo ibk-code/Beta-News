@@ -1,0 +1,44 @@
+#main {
+  margin-top: 3rem;
+}
+
+.category {
+  h2 {
+    font-weight: 700;
+  }
+  .categories {
+    background-color: $shade-white;
+    padding: 2rem 1rem;
+    border-radius: 10px;
+
+    & > button:not(:first-child) {
+      margin-top: 0.8rem;
+    }
+
+    .cat_btn {
+      display: block;
+      background: transparent;
+      border: none;
+      transition: 0.6s ease-in;
+      outline: none;
+      color: $shade-grey;
+      &:hover {
+        color: $primary-orange;
+      }
+    }
+  }
+
+  .categories-mobile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .categories {
+    display: none !important;
+  }
+
+  .categories-mobile {
+    display: block !important;
+  }
+}

@@ -1,0 +1,29 @@
+// import abstract folder
+@import "./abstracts/variable";
+
+// import base folder
+@import "./base/base";
+@import "./base/typography";
+
+// import components folder
+@import "./components/feed";
+@import "./components/buttton";
+
+// import layout folder
+@import "./layout/skipcontent";
+@import "./layout/navigation";
+// @import "./layout/footer";
+
+// import from utils folder
+@import "./utils/helpers";
+
+// import pages folder
+@import "./pages/home";
+@import "./pages/details";
+// @import "./pages/login";
+// @import "./pages/student-form";
+// @import "./pages/service-charge";
+// @import "./pages/become-tutor";
+// @import "./pages/_contact";
+
+@import "../../node_modules/bootstrap/scss/bootstrap";

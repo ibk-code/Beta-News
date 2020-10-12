@@ -1,0 +1,96 @@
+.md-top {
+  margin-top: 4rem;
+}
+
+.lg-font {
+  font-size: 4.6rem;
+}
+
+.lt-space {
+  letter-spacing: -3.7px;
+}
+
+.lg-spacing-tb {
+  padding: 5rem 0;
+}
+
+.s-bold {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.e-bold {
+  font-weight: 800;
+}
+
+.lg-btn {
+  padding: 0.8rem 2.5rem;
+}
+
+.heavy {
+  font-weight: 900;
+}
+
+.bg-purple {
+  background-color: $primary-orange !important;
+}
+
+// .bg-green {
+//   background-color: $shade-green !important;
+// }
+
+// .bg-grey {
+//   background: $shade-grey;
+// }
+
+.orange {
+  color: $primary-orange !important;
+}
+
+// .green {
+//   color: $shade-green;
+// }
+
+// .light-ash {
+//   color: $shade-light-ash !important;
+// }
+
+// .bg-green {
+//   background-color: $shade-green;
+// }
+
+.md-pad {
+  padding: 7rem 0;
+}
+
+// .bg-green {
+//   background-color: $shade-green;
+// }
+
+.bg-orange {
+  background-color: $primary-orange;
+}
+
+.back {
+  outline: none;
+  font-size: 1.6rem;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .lg-font {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .lg-font {
+    font-size: 3rem;
+  }
+}
