@@ -1,10 +1,10 @@
-import React, { Suspense, lazy } from "react";
-import "./sass/main.scss";
-import { Provider } from "mobx-react";
-import feeds from "./mobx/NewsStore";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-const Home = lazy(() => import("./pages/home"));
-const Details = lazy(() => import("./pages/details"));
+import React, { Suspense, lazy } from 'react';
+import './sass/main.scss';
+import { Provider } from 'mobx-react';
+import feeds from './mobx/NewsStore';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+const Home = lazy(() => import('./screens/home'));
+const Details = lazy(() => import('./screens/details'));
 
 // let feeds = new News();
 

@@ -1,18 +1,19 @@
-import React from "react";
-import Seo from "../components/Seo";
-import Navigation from "../components/Navigation/";
-import { Container, Row, Col } from "react-bootstrap";
-import { categories } from "../utils";
-import Feed from "../components/Feed";
-import { observer, inject } from "mobx-react";
+import React from 'react';
+import Seo from '../shared/Seo';
+import Navigation from '../shared/Navigation';
+import { Container, Row, Col } from 'react-bootstrap';
+import { categories } from '../utils';
+import Feed from '../components/Feed';
+import Skeleton from '../components/Skeleton';
+import { observer, inject } from 'mobx-react';
 
-// @inject("feed")
-// @observer
+@inject('feed')
+@observer
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: "All",
+      category: 'General'
     };
   }
 
@@ -35,15 +36,15 @@ class Home extends React.Component {
       feed = this.props.feed.newsFeed.map((e, i) => (
         <Feed
           key={i}
-          img={e.urlToImage}
-          url={e.title}
-          time={e.publishedAt}
+          img={e.image}
+          url={e.url}
+          time={e.published_at}
           title={e.title}
-          author={e.author}
+          author={e.source}
         />
       ));
     } else {
-      feed = <p>Could not get feed. Please refresh or check network!</p>;
+      feed = <Skeleton />;
     }
     return (
       <React.Fragment>
@@ -63,7 +64,7 @@ class Home extends React.Component {
                           key={i}
                           onClick={this.newsCategory}
                           className={`${
-                            e === this.state.category ? "orange" : ""
+                            e === this.state.category ? 'orange' : ''
                           } cat_btn`}
                         >
                           {e}
@@ -104,5 +105,4 @@ class Home extends React.Component {
   }
 }
 
-export default inject("feed")(observer(Home));
-// export default Home;
+export default Home;

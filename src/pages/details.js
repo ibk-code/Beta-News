@@ -1,35 +1,37 @@
-import React from "react";
-import Seo from "../components/Seo";
-import Navigation from "../components/Navigation/";
-import { Container } from "react-bootstrap";
-import { observer, inject } from "mobx-react";
-import firebase from "../firebase";
+import React from 'react';
+import Seo from '../shared/Seo';
+import Navigation from '../shared/Navigation/';
+import { Container } from 'react-bootstrap';
+import { observer, inject } from 'mobx-react';
+import firebase from '../firebase';
 
+@inject('feed')
+@observer
 class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      articleId: "",
-      newComment: "",
-      comments: [],
+      articleId: '',
+      newComment: '',
+      comments: []
     };
   }
 
   imgError = (e) => {
-    e.target.src = "./asset/img/dummy.jpg";
+    e.target.src = './asset/img/dummy.jpg';
   };
 
   getArticle = () => {
-    const title = new URLSearchParams(window.location.search).get("title");
+    const title = new URLSearchParams(window.location.search).get('title');
     this.props.feed.getSingleFeed(title);
   };
 
   getComments = () => {
     this.setState({ loadingComments: true });
-    const articles = firebase.db.collection("articles");
-    const title = new URLSearchParams(window.location.search).get("title");
+    const articles = firebase.db.collection('articles');
+    const title = new URLSearchParams(window.location.search).get('title');
     articles
-      .where("title", "==", title)
+      .where('title', '==', title)
       .get()
       .then((querySnapShot) => {
         if (querySnapShot.docs.length === 0) {
@@ -37,20 +39,20 @@ class Details extends React.Component {
             .add({
               title,
               comments: [],
-              createdAt: Date.now(),
+              createdAt: Date.now()
             })
             .then((doc) => {
               this.setState({
-                articleId: doc.id,
+                articleId: doc.id
               });
             })
             .catch(function (error) {
-              console.error("Error adding document: ", error);
+              console.error('Error adding document: ', error);
             });
         } else {
           this.setState({
             articleId: querySnapShot.docs[0].id,
-            comments: querySnapShot.docs[0].data().comments,
+            comments: querySnapShot.docs[0].data().comments
           });
         }
       });
@@ -63,20 +65,20 @@ class Details extends React.Component {
   };
 
   updateComment = () => {
-    const articles = firebase.db.collection("articles");
-    if (this.state.newComment !== ("" || " ")) {
+    const articles = firebase.db.collection('articles');
+    if (this.state.newComment !== ('' || ' ')) {
       const comment = {
         comment: this.state.newComment,
-        posted: Date.now(),
+        posted: Date.now()
       };
       articles
         .doc(this.state.articleId)
         .update({
-          comments: [...this.state.comments, comment],
+          comments: [...this.state.comments, comment]
         })
         .then((doc) => {
           const prevState = this.state.comments;
-          this.setState({ comments: [comment, ...prevState], newComment: "" });
+          this.setState({ comments: [comment, ...prevState], newComment: '' });
         });
     }
   };
@@ -101,27 +103,27 @@ class Details extends React.Component {
                   <div>
                     <h1>{`Article: ${article?.title}`}</h1>
                     <img
-                      src={article?.urlToImage || "./asset/img/dummy.jpg"}
+                      src={article.image || './asset/img/dummy.jpg'}
                       onError={this.imgError}
-                      alt={article?.title}
+                      alt={article.title}
                       className="img-fluid"
                     />
                     <article>
                       <div className="article-details pt-3">
                         <p className="article-date">
                           <b> Date: </b>
-                          {new Date(article?.publishedAt).toDateString()}
+                          {new Date(article?.published_at).toDateString()}
                         </p>
                         <p>
-                          <b>Author:</b>{" "}
+                          <b>Author:</b>{' '}
                           {this.props.author === null
-                            ? "Not available"
-                            : article?.author}
+                            ? 'Not available'
+                            : article?.source}
                         </p>
                       </div>
-                      <p className="content">{article?.content}</p>
+                      <p className="content">{article?.description}</p>
                       <p className="read-more">
-                        <b>Read More:</b>{" "}
+                        <b>Read More:</b>{' '}
                         <a
                           href={article?.url}
                           target="_blank"
@@ -159,7 +161,7 @@ class Details extends React.Component {
                               </p>
                               <p className="user-comments">{e.comment}</p>
                               <p className="date">
-                                <b>Posted:</b>{" "}
+                                <b>Posted:</b>{' '}
                                 {new Date(e.posted).toDateString()}
                               </p>
                             </div>
@@ -180,5 +182,5 @@ class Details extends React.Component {
   }
 }
 
-export default inject("feed")(observer(Details));
+export default Details;
 // export default Home;

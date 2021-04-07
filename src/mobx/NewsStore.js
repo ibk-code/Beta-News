@@ -1,67 +1,79 @@
-import { observable, action, autorun, makeObservable } from "mobx";
-import axios from "axios";
+import { observable, action, autorun, makeObservable } from 'mobx';
+import axios from 'axios';
 
 class News {
-  newsFeed = [];
-  singleFeed = {};
-  loading = false;
+  @observable newsFeed = [];
+  @observable singleFeed = {};
+  @observable loading = false;
 
   constructor() {
-    makeObservable(this, {
-      newsFeed: observable,
-      singleFeed: observable,
-      loading: observable,
-      getSingleFeed: action,
-      getNews: action,
-    });
-    autorun(() => {
-      console.log(this.newsFeed);
-    });
+    makeObservable(this);
   }
 
+  /**
+   * Get a single news full details
+   * @param {string} title
+   */
+  @action
   getSingleFeed = (title) => {
-    const articles = JSON.parse(sessionStorage.getItem("article"));
-    this.singleFeed = articles.find((e) => {
+    const news = JSON.parse(sessionStorage.getItem('news'));
+    this.singleFeed = news.find((e) => {
       return e.title === title;
     });
   };
 
+  /**
+   * filter array of news to be filtered
+   * @param {array}
+   * @returns array
+   */
   sortedNews = (data) => {
     return data.filter((e) => {
-      return e.content !== null;
+      return e.title !== null;
     });
   };
 
-  getNews = async (category = "all") => {
+  /**
+   * Load all news for the site
+   * @param {category} string
+   */
+  @action
+  getNews = async (category = 'general') => {
     const tranCategory = category.toLowerCase();
     try {
       this.loading = true;
       let response;
       const all_url =
-        "http://newsapi.org/v2/top-headlines?country=ng&apiKey=216e6236cd1d4ae3afe99ee30c2179c9";
+        'http://api.mediastack.com/v1/news?access_key=e963538e9ef84009f0cbb43945521825&country=ni&categories=general&sources=cnn,bbc&limit=15';
 
-      const category_url = `http://newsapi.org/v2/top-headlines?country=ng&category=${tranCategory}&apiKey=216e6236cd1d4ae3afe99ee30c2179c9`;
+      const category_url = `http://api.mediastack.com/v1/news?access_key=e963538e9ef84009f0cbb43945521825&country=ni&categories=general&sources=cnn,bbc&limit=15&categories=${tranCategory}`;
 
-      if (tranCategory === "all") {
+      if (tranCategory === 'general') {
         response = await axios.get(all_url);
+        console.log(response.data.data);
       } else {
         response = await axios.get(category_url);
       }
-      this.newsFeed = this.sortedNews(response.data.articles);
+      this.newsFeed = this.sortedNews(response.data.data);
+      console.log('set value of news');
       sessionStorage.setItem(
-        "article",
-        JSON.stringify(this.sortedNews(response.data.articles))
+        'news',
+        JSON.stringify(this.sortedNews(this.newsFeed))
       );
       this.loading = false;
     } catch (error) {
       this.loading = false;
       this.newsFeed = [];
-      return "Error occured";
+      return 'Error occured';
     }
   };
 }
 
 let feeds = new News();
 window.feeds = feeds;
+
+autorun(() => {
+  console.log(feeds.newsFeed);
+});
 
 export default feeds;
