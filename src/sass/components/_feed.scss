@@ -26,7 +26,7 @@
 
       &::before {
         width: 100%;
-        content: " ";
+        content: ' ';
         height: 400px;
         background-color: $shade-ash;
         border-radius: 10px;
@@ -72,7 +72,7 @@
       transition: 0.4s ease-in;
 
       &:hover {
-        color: $primary-orange;
+        color: $primary-green;
       }
     }
   }

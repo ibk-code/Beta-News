@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkipToContent Component test expect to render SkipToContent  component 1`] = `
+<a
+  className="skip"
+  href="#main"
+>
+  Skip to Content
+</a>
+`;

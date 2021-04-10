@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navigation Component test expect to render Navigation  component 1`] = `
+<Fragment>
+  <div
+    className="nav-wrap shadow"
+  >
+    <Container
+      fluid={false}
+    >
+      <h1>
+        <Link
+          className="orange"
+          to="/"
+        >
+          Beta
+          <small>
+            News
+          </small>
+        </Link>
+      </h1>
+    </Container>
+  </div>
+</Fragment>
+`;

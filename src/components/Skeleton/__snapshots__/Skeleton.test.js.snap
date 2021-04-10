@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Skeleton Component test expect to render skeleton component 1`] = `
+<Fragment>
+  <div
+    className="skeleton-wrap mb-4"
+  >
+    <div
+      className="skeleton-shape"
+    />
+    <div
+      className="skeleton-shape-long mt-4"
+    />
+    <div
+      className="skeleton-shape-small mt-3"
+    />
+  </div>
+</Fragment>
+`;

@@ -2,8 +2,8 @@ import React from 'react';
 import Seo from '../shared/Seo';
 import Navigation from '../shared/Navigation/';
 import { Container } from 'react-bootstrap';
-import { observer, inject } from 'mobx-react';
 import firebase from '../firebase';
+import { observer, inject } from 'mobx-react';
 
 @inject('feed')
 @observer
@@ -17,15 +17,25 @@ class Details extends React.Component {
     };
   }
 
+  /**
+   * image errror function
+   * @param {object} e
+   */
   imgError = (e) => {
     e.target.src = './asset/img/dummy.jpg';
   };
 
+  /**
+   * Get the title of the current newa
+   */
   getArticle = () => {
     const title = new URLSearchParams(window.location.search).get('title');
     this.props.feed.getSingleFeed(title);
   };
 
+  /**
+   * Get other user comments for a news article
+   */
   getComments = () => {
     this.setState({ loadingComments: true });
     const articles = firebase.db.collection('articles');
@@ -59,11 +69,18 @@ class Details extends React.Component {
     this.setState({ loadingComments: false });
   };
 
+  /**
+   * Submit new user comment to the db
+   * @param {object} e
+   */
   submitComment = (e) => {
     e.preventDefault();
     this.updateComment();
   };
 
+  /**
+   * update the comment on an article
+   */
   updateComment = () => {
     const articles = firebase.db.collection('articles');
     if (this.state.newComment !== ('' || ' ')) {
@@ -84,6 +101,7 @@ class Details extends React.Component {
   };
 
   componentDidMount() {
+    console.log('Helloworld');
     this.getArticle();
     this.getComments();
   }
@@ -101,18 +119,18 @@ class Details extends React.Component {
               <div className="details">
                 {
                   <div>
-                    <h1>{`Article: ${article?.title}`}</h1>
+                    <h1>{`Article: ${article?.abstract}`}</h1>
                     <img
-                      src={article.image || './asset/img/dummy.jpg'}
+                      src={article.img}
                       onError={this.imgError}
-                      alt={article.title}
+                      alt={article?.abstract}
                       className="img-fluid"
                     />
                     <article>
                       <div className="article-details pt-3">
                         <p className="article-date">
                           <b> Date: </b>
-                          {new Date(article?.published_at).toDateString()}
+                          {new Date(article?.pub_date).toDateString()}
                         </p>
                         <p>
                           <b>Author:</b>{' '}
@@ -121,11 +139,11 @@ class Details extends React.Component {
                             : article?.source}
                         </p>
                       </div>
-                      <p className="content">{article?.description}</p>
+                      <p className="content">{article?.lead_paragraph}</p>
                       <p className="read-more">
                         <b>Read More:</b>{' '}
                         <a
-                          href={article?.url}
+                          href={article?.web_url}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -183,4 +201,3 @@ class Details extends React.Component {
 }
 
 export default Details;
-// export default Home;

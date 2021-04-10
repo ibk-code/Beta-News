@@ -18,8 +18,9 @@ class News {
   getSingleFeed = (title) => {
     const news = JSON.parse(sessionStorage.getItem('news'));
     this.singleFeed = news.find((e) => {
-      return e.title === title;
+      return e.abstract === title;
     });
+    console.log(this.singleFeed);
   };
 
   /**
@@ -44,18 +45,21 @@ class News {
       this.loading = true;
       let response;
       const all_url =
-        'http://api.mediastack.com/v1/news?access_key=e963538e9ef84009f0cbb43945521825&country=ni&categories=general&sources=cnn,bbc&limit=15';
+        'https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=RPQupbRhsRgUAKURH6APjwfXr8EGCoeN';
 
-      const category_url = `http://api.mediastack.com/v1/news?access_key=e963538e9ef84009f0cbb43945521825&country=ni&categories=general&sources=cnn,bbc&limit=15&categories=${tranCategory}`;
+      const category_url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=RPQupbRhsRgUAKURH6APjwfXr8EGCoeN&q=${tranCategory}`;
 
       if (tranCategory === 'general') {
         response = await axios.get(all_url);
-        console.log(response.data.data);
+        console.log(response.data.response.docs);
       } else {
         response = await axios.get(category_url);
       }
-      this.newsFeed = this.sortedNews(response.data.data);
-      console.log('set value of news');
+      this.newsFeed = this.sortedNews(response.data.response.docs);
+      this.newsFeed.forEach((e, i) => {
+        e.img = `https://www.nytimes.com/${e.multimedia[9].url}`;
+        delete e.multimedia;
+      });
       sessionStorage.setItem(
         'news',
         JSON.stringify(this.sortedNews(this.newsFeed))

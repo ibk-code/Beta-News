@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feed Component test expect to render feed component 1`] = `
+<Fragment>
+  <div
+    className="feed"
+  >
+    <Link
+      to="/detail?title=Test Article"
+    >
+      <div
+        className="feed__img"
+      >
+        <img
+          alt="Test Article"
+          className="img-fluid"
+          onError={[Function]}
+          src="https://cdn.cnn.com/cnnnext/dam/assets/210112041400-02-ireland-covid-0106-super-169.jpg"
+        />
+        <div
+          className="gradient"
+        />
+        <p
+          className="date"
+        >
+          Date: 
+          Wed Jan 13 2021
+        </p>
+      </div>
+      <div
+        className="desc"
+      >
+        <p
+          className="author"
+        >
+          Author:
+           
+          cnn
+        </p>
+        <p
+          className="title"
+        >
+          Test Article
+        </p>
+      </div>
+    </Link>
+  </div>
+</Fragment>
+`;

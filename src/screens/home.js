@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { categories } from '../utils';
 import Feed from '../components/Feed';
 import Skeleton from '../components/Skeleton';
-import { observer, inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 @inject('feed')
 @observer
@@ -17,34 +17,37 @@ class Home extends React.Component {
     };
   }
 
+  /**
+   * Function to switch the category
+   * @param {object} e
+   */
   newsCategory = (e) => {
     this.props.feed.getNews(e.target.innerText);
     this.setState({ category: e.target.innerText });
   };
 
+  /**
+   * Function handling category mobile view
+   * @param {object} e
+   */
   newsCategoryMobile = (e) => {
     this.props.feed.getNews(e.target.value);
     this.setState({ category: e.target.value });
   };
 
   componentDidMount() {
+    console.log(this.props.feed.loading);
     this.props.feed.getNews();
   }
+
   render() {
     let feed;
     if (this.props.feed.newsFeed.length > 0) {
       feed = this.props.feed.newsFeed.map((e, i) => (
-        <Feed
-          key={i}
-          img={e.image}
-          url={e.url}
-          time={e.published_at}
-          title={e.title}
-          author={e.source}
-        />
+        <Feed key={i} article={e} />
       ));
     } else {
-      feed = <Skeleton />;
+      feed = <p>Could not get feed. Please refresh or check network!</p>;
     }
     return (
       <React.Fragment>
@@ -87,11 +90,8 @@ class Home extends React.Component {
                     <h2>
                       <b>New</b> Headlines - {this.state.category}
                     </h2>
-                    {this.props.feed.loading && (
-                      <p className="text-center font-weight-bold">
-                        Loading news feed....
-                      </p>
-                    )}
+                    {this.props.feed.loading &&
+                      [...Array(2).keys()].map((e, i) => <Skeleton key={i} />)}
                     {!this.props.feed.loading && feed}
                   </div>
                 </Col>

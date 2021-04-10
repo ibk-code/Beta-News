@@ -2,8 +2,7 @@ export const categories = [
   'General',
   'Business',
   'Science',
-  'Entertainment',
-  'Sports',
+  'Sport',
   'Health',
-  'Technology'
+  'Tech'
 ];
